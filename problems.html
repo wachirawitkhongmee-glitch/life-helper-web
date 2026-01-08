@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>เลือกปัญหา</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg">
+
+<div class="card wide">
+<h2 id="title"></h2>
+<div id="list"></div>
+</div>
+
+<script>
+const data = {
+ "การเงิน":["เงินไม่พอใช้","อยากเก็บเงิน","ใช้เงินฟุ่มเฟือย"],
+ "การเรียน":["อ่านไม่ทัน","สอบตก","ไม่มีสมาธิเรียน"],
+ "อาหาร":["ไม่รู้จะกินอะไร","กินไม่ตรงเวลา","กินไม่ครบ5หมู่"],
+ "อื่นๆ":["เครียด","นอนไม่พอ","ไม่มีเวลา"]
+};
+
+let cat = localStorage.getItem("cat");
+document.getElementById("title").innerText="ปัญหา : "+cat;
+
+let html="";
+data[cat].forEach(p=>{
+ html += `<div class="cat" onclick="openDetail('${p}')">${p}</div>`;
+});
+document.getElementById("list").innerHTML=html;
+
+function openDetail(p){
+ localStorage.setItem("problem",p);
+ location.href="detail.html";
+}
+</script>
+</body>
+</html>

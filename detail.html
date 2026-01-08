@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>แนวทางแก้ไข</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg">
+
+<div class="card wide">
+<h2 id="pname"></h2>
+
+<div class="solve" id="text"></div>
+<button onclick="history.back()">ย้อนกลับ</button>
+</div>
+
+<script>
+const explain = {
+ "เงินไม่พอใช้":"จดรายรับรายจ่ายทุกวัน แยกเงินเก็บก่อนใช้",
+ "อยากเก็บเงิน":"หยอดกระปุกวันละนิด ตั้งเป้าหมายรายเดือน",
+ "ใช้เงินฟุ่มเฟือย":"งดซื้อของไม่จำเป็น 30 วัน",
+ "อ่านไม่ทัน":"แบ่งเวลาอ่านวันละ 30 นาที",
+ "สอบตก":"ทบทวนบทเรียนวันละนิด",
+ "ไม่มีสมาธิเรียน":"ปิดมือถือขณะอ่านหนังสือ",
+ "ไม่รู้จะกินอะไร":"เลือกอาหารตามหลัก 5 หมู่",
+ "กินไม่ตรงเวลา":"ตั้งเตือนเวลาอาหาร",
+ "กินไม่ครบ5หมู่":"เพิ่มผักผลไม้ทุกมื้อ",
+ "เครียด":"หายใจลึกๆ พักสายตา",
+ "นอนไม่พอ":"เข้านอนก่อน 22:00",
+ "ไม่มีเวลา":"จัดตารางชีวิต"
+};
+
+let p = localStorage.getItem("problem");
+document.getElementById("pname").innerText=p;
+document.getElementById("text").innerText=explain[p];
+</script>
+</body>
+</html>

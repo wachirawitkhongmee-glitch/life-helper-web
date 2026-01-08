@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>เลือกหมวดปัญหา</title>
+<style>
+body{font-family:tahoma;background:#f1f8e9;text-align:center;}
+.card{background:white;display:inline-block;width:180px;margin:20px;padding:20px;border-radius:15px;font-size:20px;}
+.card a{text-decoration:none;color:black;}
+</style>
+</head>
+<body>
+<h2>เลือกหมวดปัญหาที่คุณพบ</h2>
+
+<div class="card" onclick="goSolve('การเงิน')">💰 การเงิน</div>
+<div class="card" onclick="goSolve('การเรียน')">📚 การเรียน</div>
+<div class="card" onclick="goSolve('อาหาร')">🍱 อาหาร</div>
+<div class="card" onclick="goSolve('อื่นๆ')">🧩 อื่นๆ</div>
+
+<script>
+function goSolve(type){
+  localStorage.setItem("cat", type);
+  location.href="problems.html";
+}
+</script>
+</body>
+
+</body>
+</html>
+
+
+

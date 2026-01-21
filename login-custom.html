@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeFix Web - เข้าสู่ระบบ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ภาพพื้นหลัง - เมฆและต้นไม้ */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(255,255,255,0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(144,238,144,0.3) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-box {
+  background: linear-gradient(135deg, #81d4fa 0%, #4fc3f7 100%);
+  border: 4px solid white;
+  border-radius: 30px;
+  padding: 25px 20px 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.characters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.character {
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.idea-bulb {
+  position: absolute;
+  top: 15px;
+  right: 50%;
+  transform: translateX(50%);
+  font-size: 35px;
+}
+
+.gears {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+.logo-text {
+  font-size: 42px;
+  font-weight: bold;
+  margin: 15px 0 5px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-text .life {
+  color: #2196F3;
+}
+
+.logo-text .fix {
+  color: #FF9800;
+}
+
+.logo-text .web {
+  color: #4CAF50;
+}
+
+.subtitle {
+  background: white;
+  display: inline-block;
+  padding: 8px 25px;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.page-title {
+  font-size: 32px;
+  color: #1976D2;
+  margin: 25px 0 20px;
+  font-weight: bold;
+}
+
+.box {
+  background: white;
+  padding: 35px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #2196F3;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px 15px 14px 50px;
+  border: 2px solid #2196F3;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s;
+  background: #f8f9ff;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #1976D2;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.1);
+}
+
+.remember-box {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.remember-box input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  cursor: pointer;
+  accent-color: #4CAF50;
+}
+
+.remember-box label {
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(33,150,243,0.3);
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(33,150,243,0.4);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.btn-register {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #FFA726 0%, #FF9800 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 15px;
+  box-shadow: 0 4px 12px rgba(255,152,0,0.3);
+}
+
+.btn-register:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255,152,0,0.4);
+}
+
+.forgot-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #1976D2;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.sparkle {
+  position: absolute;
+  color: #FFC107;
+  opacity: 0.7;
+  animation: twinkle 2s infinite;
+}
+
+.sparkle-1 { top: 20%; right: 15%; font-size: 20px; animation-delay: 0s; }
+.sparkle-2 { top: 40%; left: 10%; font-size: 15px; animation-delay: 0.5s; }
+.sparkle-3 { bottom: 25%; right: 12%; font-size: 18px; animation-delay: 1s; }
+.sparkle-4 { bottom: 15%; left: 8%; font-size: 12px; animation-delay: 1.5s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.page {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.page.show {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<div class="sparkle sparkle-1">✦</div>
+<div class="sparkle sparkle-2">✦</div>
+<div class="sparkle sparkle-3">✦</div>
+<div class="sparkle sparkle-4">✦</div>
+
+<div class="container page">
+  <div class="header">
+    <div class="logo-box">
+      <div class="idea-bulb">💡</div>
+      <div class="gears">⚙️</div>
+      <div class="characters">
+        <div class="character">👦</div>
+        <div class="character">👧</div>
+        <div class="character">👦</div>
+      </div>
+      <div class="logo-text">
+        <span class="life">Life</span><span class="fix">Fix</span> <span class="web">Web</span>
+      </div>
+      <div class="subtitle">เว็บช่วยแก้ปัญหาชีวิตประจำวัน</div>
+    </div>
+    
+    <h1 class="page-title">เข้าสู่ระบบ</h1>
+  </div>
+
+  <div class="box">
+    <form onsubmit="login(); return false;">
+      <div class="form-group">
+        <label>ชื่อผู้ใช้ / อีเมล</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" id="username" placeholder="••••••••">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>รหัสผ่าน</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" placeholder="••••••••">
+        </div>
+      </div>
+
+      <div class="remember-box">
+        <input type="checkbox" id="remember">
+        <label for="remember">จดจำฉันไว้ในระบบ</label>
+      </div>
+
+      <button type="submit" class="btn-login">เข้าสู่ระบบ</button>
+      
+      <button type="button" class="btn-register" onclick="go('register.html')">สมัครสมาชิก</button>
+      
+      <a href="forgot.html" class="forgot-link">ลืมรหัสผ่าน? คลิกที่นี่</a>
+    </form>
+  </div>
+
+  <div class="footer">
+    © 2026 LifeFix Web
+  </div>
+</div>
+
+<script>
+function login() {
+  let u = document.getElementById("username").value;
+  let p = document.getElementById("password").value;
+  
+  // ใช้ in-memory storage แทน localStorage
+  if (!window.usersData) window.usersData = {};
+  
+  if (!window.usersData[u]) {
+    alert("ไม่มีบัญชีนี้ในระบบ");
+    return;
+  }
+  
+  if (window.usersData[u].pass != p) {
+    alert("รหัสผ่านไม่ถูกต้อง");
+    return;
+  }
+  
+  if (document.getElementById("remember").checked) {
+    window.rememberedUser = u;
+    window.rememberedPass = p;
+  }
+  
+  window.currentUser = u;
+  location.href = "category.html";
+}
+
+function go(url) {
+  const page = document.querySelector(".page");
+  page.classList.remove("show");
+  setTimeout(() => location.href = url, 400);
+}
+
+window.onload = function() {
+  document.querySelector(".page").classList.add("show");
+  
+  // โหลดข้อมูลที่จำไว้
+  if (window.rememberedUser) {
+    document.getElementById("username").value = window.rememberedUser;
+    document.getElementById("password").value = window.rememberedPass;
+  }
+};
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js").catch(() => {});
+}
+</script>
+</body>
+</html>

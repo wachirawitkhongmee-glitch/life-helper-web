@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+  <div class="page">
+  <style>
+.page{
+ opacity:0;
+ transition:opacity .5s ease;
+}
+
+.page.show{
+ opacity:1;
+}
+</style>
+
 <meta charset="UTF-8">
 <title>LifeFix Web - เข้าสู่ระบบ</title>
 <style>
@@ -17,8 +29,60 @@ a{text-decoration:none;}
 <p>เว็บช่วยแก้ปัญหาชีวิตประจำวัน</p>
 <input type="text" placeholder="ชื่อผู้ใช้">
 <input type="password" placeholder="รหัสผ่าน">
-<button onclick="location.href='category.html'">เข้าสู่ระบบ</button>
-<p><a href="#">สมัครสมาชิก</a></p>
+<input type="checkbox" id="remember"> จำฉันไว้<br><br>
+
+<button onclick="login()">เข้าสู่ระบบ</button>
+<p><a href="forgot.html">ลืมรหัสผ่าน?</a></p>
+
+<script>
+function login(){
+ let u = document.querySelectorAll("input")[0].value;
+ let p = document.querySelectorAll("input")[1].value;
+
+ let users = JSON.parse(localStorage.getItem("users")||"{}");
+
+ if(!users[u]){ alert("ไม่มีบัญชีนี้ในระบบ"); return; }
+ if(users[u].pass!=p){ alert("รหัสผ่านไม่ถูกต้อง"); return; }
+
+ if(document.getElementById("remember").checked){
+  localStorage.setItem("user",u);
+  localStorage.setItem("pass",p);
+ }
+
+ location.href="category.html";
+ localStorage.setItem("currentUser", u);
+
+}
+
+window.onload=function(){
+ document.querySelectorAll("input")[0].value = localStorage.getItem("user")||"";
+ document.querySelectorAll("input")[1].value = localStorage.getItem("pass")||"";
+}
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+
+
+
+
+<p><a href="register.html">สมัครสมาชิก</a></p>
+
+</div>
+<script>
+window.onload = ()=>{
+ document.querySelector(".page").classList.add("show");
+};
+
+function go(url){
+ const page=document.querySelector(".page");
+ page.classList.remove("show");
+ setTimeout(()=>location.href=url,400);
+}
+</script>
 </div>
 </body>
 </html>

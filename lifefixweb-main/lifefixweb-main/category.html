@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <style>
+    /* handled in css */
+  </style>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FF6B6B">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="UTF-8">
+  <title>เลือกหมวดปัญหา</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="page" style="width:100%; max-width:800px;">
+
+    <div class="top-bar">
+      <div class="app-title">LifeFix</div>
+      <div style="display:flex;">
+        <button class="icon-btn" onclick="openHistory()">📜 ประวัติ</button>
+        <button class="icon-btn" onclick="location.href='logout.html'">🚪 ออก</button>
+      </div>
+    </div>
+
+    <h2>เลือกหมวดปัญหาที่คุณพบ</h2>
+
+    <div class="grid">
+      <div class="cat" onclick="goSolve('การเงิน')">💰 การเงิน</div>
+      <div class="cat" onclick="goSolve('การเรียน')">📚 การเรียน</div>
+      <div class="cat" onclick="goSolve('อาหาร')">🍱 อาหาร</div>
+      <div class="cat" onclick="goSolve('อื่นๆ')">🧩 อื่นๆ</div>
+    </div>
+
+    <script>
+      function openHistory() {
+        let u = localStorage.getItem("currentUser");
+        let h = JSON.parse(localStorage.getItem("history_" + u) || "[]");
+        if (h.length == 0) { alert("ยังไม่มีประวัติ"); return; }
+
+        let t = "📜 ประวัติของคุณ\n\n";
+        h.forEach(x => t += "• " + x + "\n");
+        alert(t);
+      }
+
+
+
+      function goSolve(type) {
+        localStorage.setItem("cat", type);
+        location.href = "problems.html";
+      }
+    </script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+      }
+    </script>
+  </div>
+</body>
+
+</html>

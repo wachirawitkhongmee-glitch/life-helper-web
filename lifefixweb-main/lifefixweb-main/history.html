@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <div class="page">
+    <style>
+.page{
+ opacity:0;
+ transition:opacity .5s ease;
+}
+
+.page.show{
+ opacity:1;
+}
+</style>
+
+<meta charset="UTF-8">
+<title>ประวัติการดู</title>
+<style>
+body{font-family:tahoma;background:#E3F2FD;text-align:center;}
+.top{background:#1976D2;color:white;padding:15px;border-radius:0 0 20px 20px;}
+.card{
+ background:white;
+ width:320px;
+ margin:15px auto;
+ padding:15px;
+ border-radius:15px;
+ box-shadow:0 4px 10px rgba(0,0,0,.2);
+ text-align:left;
+}
+.back{margin:20px;padding:10px 20px;border:none;border-radius:20px;background:#2196F3;color:white;}
+</style>
+</head>
+<body>
+
+<div class="top">📜 ประวัติการดูของคุณ</div>
+
+<div id="list"></div>
+
+<button class="back" onclick="history.back()">← กลับ</button>
+
+<script>
+let h = JSON.parse(localStorage.getItem("history")||"[]");
+let box = document.getElementById("list");
+
+if(h.length==0){
+ box.innerHTML="<p>ยังไม่มีประวัติการดู</p>";
+}else{
+ h.forEach(x=>{
+  box.innerHTML += `<div class="card">• ${x}</div>`;
+ });
+}
+</script>
+<script>
+window.onload = ()=>{
+ document.querySelector(".page").classList.add("show");
+};
+
+function go(url){
+ const page=document.querySelector(".page");
+ page.classList.remove("show");
+ setTimeout(()=>location.href=url,400);
+}
+</script>
+</div>
+</body>
+</html>

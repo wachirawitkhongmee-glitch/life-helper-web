@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <div class="page">
+        <style>
+            .page {
+                opacity: 0;
+                transition: opacity .5s ease;
+            }
+
+            .page.show {
+                opacity: 1;
+            }
+        </style>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>ออกจากระบบ</title>
+</head>
+
+<body>
+    <div class="card page" style="margin-top:100px;">
+        <h2>กำลังออกจากระบบ...</h2>
+    </div>
+    <script>
+        localStorage.clear();
+        location.href = "login.html";
+    </script>
+    <script>
+        window.onload = () => {
+            document.querySelector(".page").classList.add("show");
+        };
+
+        function go(url) {
+            const page = document.querySelector(".page");
+            page.classList.remove("show");
+            setTimeout(() => location.href = url, 400);
+        }
+    </script>
+    </div>
+</body>
+
+</html>

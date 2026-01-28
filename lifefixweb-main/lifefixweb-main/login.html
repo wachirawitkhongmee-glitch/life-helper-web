@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>LifeFix Web - เข้าสู่ระบบ</title>
+
+  <!-- ✅ เชื่อม CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FF6B6B">
+</head>
+
+<body>
+
+  <div class="card page">
+    <h2>LifeFix Web</h2>
+    <p>เว็บช่วยแก้ปัญหาชีวิตประจำวัน</p>
+
+    <input type="text" placeholder="ชื่อผู้ใช้">
+    <input type="password" placeholder="รหัสผ่าน">
+
+    <div style="text-align:left; margin: 10px 0;">
+      <input type="checkbox" id="remember" style="width:auto;">
+      <label for="remember">จำฉันไว้</label>
+    </div>
+
+    <button onclick="login()">เข้าสู่ระบบ</button>
+
+    <p><a href="forgot.html">ลืมรหัสผ่าน?</a></p>
+    <p><a href="register.html">สมัครสมาชิก</a></p>
+  </div> <!-- ✅ ปิด div -->
+
+  <script>
+    function login() {
+      let u = document.querySelectorAll("input")[0].value;
+      let p = document.querySelectorAll("input")[1].value;
+
+      let users = JSON.parse(localStorage.getItem("users") || "{}");
+
+      if (!users[u]) { alert("ไม่มีบัญชีนี้ในระบบ"); return; }
+      if (users[u].pass != p) { alert("รหัสผ่านไม่ถูกต้อง"); return; }
+
+      if (document.getElementById("remember").checked) {
+        localStorage.setItem("user", u);
+        localStorage.setItem("pass", p);
+      }
+
+      localStorage.setItem("currentUser", u);
+      location.href = "category.html";
+    }
+
+    window.onload = function () {
+      document.querySelectorAll("input")[0].value = localStorage.getItem("user") || "";
+      document.querySelectorAll("input")[1].value = localStorage.getItem("pass") || "";
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
+
+</body>
+
+</html>

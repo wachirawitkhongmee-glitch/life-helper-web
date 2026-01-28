@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <style>
+    /* Page transition is now handled in global CSS or simplified here */
+  </style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeFix</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="card page">
+    <h1>ยินดีต้อนรับสู่ LifeFix</h1>
+    <p>เว็บช่วยแก้ปัญหาชีวิตประจำวัน</p>
+
+    <a href="login.html">
+      <button>เริ่มใช้งาน</button>
+    </a>
+  </div>
+  <script>
+    window.onload = () => {
+      document.querySelector(".page").classList.add("show");
+    };
+
+    function go(url) {
+      const page = document.querySelector(".page");
+      page.classList.remove("show");
+      setTimeout(() => location.href = url, 400);
+    }
+  </script>
+</body>
+
+</html>

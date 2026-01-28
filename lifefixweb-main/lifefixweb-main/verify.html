@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <div class="page">
+    <style>
+.page{
+ opacity:0;
+ transition:opacity .5s ease;
+}
+
+.page.show{
+ opacity:1;
+}
+</style>
+
+<meta charset="UTF-8">
+<title>ยืนยันตัวตน</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg">
+
+<div class="card">
+<h2>กรอกรหัส 6 หลัก</h2>
+<input id="otp" placeholder="กรอกรหัส OTP">
+<input id="newpass" type="password" placeholder="ตั้งรหัสผ่านใหม่">
+<button onclick="verify()">ยืนยัน</button>
+</div>
+
+<script>
+function verify(){
+ let code=document.getElementById("otp").value;
+ let newp=document.getElementById("newpass").value;
+
+ if(code!=localStorage.getItem("otp")){ alert("รหัส OTP ไม่ถูกต้อง"); return; }
+
+ let u=localStorage.getItem("otp_user");
+ let users=JSON.parse(localStorage.getItem("users"));
+ users[u].pass=newp;
+ localStorage.setItem("users",JSON.stringify(users));
+
+ alert("เปลี่ยนรหัสผ่านสำเร็จ!");
+ location.href="login.html";
+}
+</script>
+<script>
+window.onload = ()=>{
+ document.querySelector(".page").classList.add("show");
+};
+
+function go(url){
+ const page=document.querySelector(".page");
+ page.classList.remove("show");
+ setTimeout(()=>location.href=url,400);
+}
+</script>
+</div>
+</body>
+</html>

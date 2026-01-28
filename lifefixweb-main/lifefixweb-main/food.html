@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>อาหาร</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg">
+
+<div class="card">
+ <h2>หมวดอาหาร</h2>
+
+ <button class="big" onclick="goEat()">🍽 การกินอาหาร</button>
+ <br><br>
+ <button class="big" onclick="goCook()">👩‍🍳 การทำอาหารกินเอง</button>
+
+ <br><br>
+ <button class="back" onclick="goBack()">⬅ ย้อนกลับ</button>
+</div>
+
+<script>
+function goEat(){
+ localStorage.setItem("subfood","eat");
+ location.href="problems.html";
+}
+
+function goCook(){
+ location.href="cook.html";
+}
+</script>
+
+<script>
+function goBack(){
+ location.href = "category.html";
+}
+</script>
+
+
+</body>
+</html>

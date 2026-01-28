@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <div class="page">
+    <style>
+.page{
+ opacity:0;
+ transition:opacity .5s ease;
+}
+
+.page.show{
+ opacity:1;
+}
+</style>
+
+<meta charset="UTF-8">
+<title>ลืมรหัสผ่าน</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg">
+
+<div class="card">
+<h2>ลืมรหัสผ่าน</h2>
+<input id="email" type="email" placeholder="กรอกอีเมลที่สมัครไว้">
+<button onclick="sendOTP()">ส่งรหัสยืนยัน</button>
+</div>
+
+<script>
+function sendOTP(){
+ let e=document.getElementById("email").value;
+ let users=JSON.parse(localStorage.getItem("users")||"{}");
+ let found=null;
+
+ for(let u in users){ if(users[u].email==e) found=u; }
+
+ if(!found){ alert("ไม่พบอีเมลนี้ในระบบ"); return; }
+
+ let otp = Math.floor(100000+Math.random()*900000);
+ localStorage.setItem("otp",otp);
+ localStorage.setItem("otp_user",found);
+
+ alert("รหัสยืนยันของคุณคือ: "+otp+"\n(จำลองการส่งทางอีเมล)");
+
+ location.href="verify.html";
+}
+</script>
+<script>
+window.onload = ()=>{
+ document.querySelector(".page").classList.add("show");
+};
+
+function go(url){
+ const page=document.querySelector(".page");
+ page.classList.remove("show");
+ setTimeout(()=>location.href=url,400);
+}
+</script>
+</div>
+</body>
+</html>

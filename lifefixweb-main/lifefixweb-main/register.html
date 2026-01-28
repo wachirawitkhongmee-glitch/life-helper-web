@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <style>
+        /* handled in css */
+    </style>
+
+    <meta charset="UTF-8">
+    <title>สมัครสมาชิก LifeFix</title>
+</head>
+
+<body>
+
+    <div class="card page">
+        <h2>สมัครสมาชิก</h2>
+
+        <input id="u" placeholder="ตั้งชื่อผู้ใช้">
+        <input id="email" type="email" placeholder="อีเมล">
+        <input id="p1" type="password" placeholder="ตั้งรหัสผ่าน">
+        <input id="p2" type="password" placeholder="ยืนยันรหัสผ่าน">
+
+        <div style="text-align:left; margin-top:10px;">
+            <label style="font-weight:bold;">วันเดือนปีเกิด</label>
+        </div>
+        <input id="dob" type="date">
+
+        <button onclick="reg()">สมัครบัญชี</button>
+        <a href="login.html"><button class="secondary" style="margin-top:10px;">กลับไปหน้าเข้าสู่ระบบ</button></a>
+    </div>
+
+    <script>
+        function reg() {
+            let u = document.getElementById("u").value;
+            let e = document.getElementById("email").value;
+            let p1 = document.getElementById("p1").value;
+            let p2 = document.getElementById("p2").value;
+            let d = document.getElementById("dob").value;
+            let msg = "";
+
+            if (u.length < 10) msg += "• ชื่อผู้ใช้ต้อง ≥ 10 ตัวอักษร\n";
+            if (!e.includes("@")) msg += "• กรุณากรอกอีเมลให้ถูกต้อง\n";
+            if (p1.length < 8) msg += "• รหัสผ่านต้อง ≥ 8 ตัว\n";
+            if (!/\d/.test(p1)) msg += "• รหัสผ่านต้องมีตัวเลข\n";
+            if (p1 != p2) msg += "• รหัสผ่านไม่ตรงกัน\n";
+            if (d == "") msg += "• กรุณาเลือกวันเกิด\n";
+
+            if (msg != "") { alert(msg); return; }
+
+            let users = JSON.parse(localStorage.getItem("users") || "{}");
+            users[u] = { pass: p1, email: e, dob: d };
+            localStorage.setItem("users", JSON.stringify(users));
+
+            alert("สมัครสมาชิกสำเร็จ!");
+            location.href = "login.html";
+        }
+    </script>
+    </div>
+    <script>
+        window.onload = () => {
+            document.querySelector(".page").classList.add("show");
+        };
+
+        function go(url) {
+            const page = document.querySelector(".page");
+            page.classList.remove("show");
+            setTimeout(() => location.href = url, 400);
+        }
+    </script>
+</body>
+
+</html>

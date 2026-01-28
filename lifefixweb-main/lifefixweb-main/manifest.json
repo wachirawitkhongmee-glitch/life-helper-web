@@ -1,0 +1,9 @@
+{
+  "name": "LifeFix",
+  "short_name": "LifeFix",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FFF9E6",
+  "theme_color": "#FF6B6B",
+  "icons": []
+}

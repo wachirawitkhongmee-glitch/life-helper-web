@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ทำอาหารกินเอง</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg">
+
+<div class="card wide">
+<h2>🍳 เลือกวัตถุดิบที่มี</h2>
+
+<div class="food-list">
+<label><input type="checkbox" value="ข้าว"> 🍚 ข้าว</label>
+<label><input type="checkbox" value="ไข่"> 🥚 ไข่</label>
+<label><input type="checkbox" value="หมู"> 🥩 หมู</label>
+<label><input type="checkbox" value="ไก่"> 🍗 ไก่</label>
+<label><input type="checkbox" value="ผัก"> 🥬 ผัก</label>
+<label><input type="checkbox" value="ไส้กรอก"> 🌭 ไส้กรอก</label>
+</div>
+
+<br>
+<button class="big" onclick="makeFood()">🍽 ดูเมนูที่ทำได้</button>
+
+<div id="result" class="solve"></div>
+
+<br>
+<button onclick="history.back()">⬅ ย้อนกลับ</button>
+</div>
+
+<script>
+function makeFood(){
+ let items = [];
+ document.querySelectorAll("input:checked")
+ .forEach(i => items.push(i.value));
+
+ let r = document.getElementById("result");
+
+ if(items.includes("ข้าว") && items.includes("ไข่")){
+  r.innerHTML = `
+  <h3>🍳 ข้าวผัดไข่</h3>
+  <p>
+  <b>วัตถุดิบ:</b> ข้าว, ไข่<br><br>
+  <b>วิธีทำ:</b><br>
+  1. ตั้งกระทะ ใส่น้ำมันเล็กน้อย<br>
+  2. ตอกไข่ลงไป ผัดให้สุก<br>
+  3. ใส่ข้าว ปรุงรส ผัดให้เข้ากัน
+  </p>`;
+ }
+ else if(items.includes("ไข่") && items.includes("ไส้กรอก")){
+  r.innerHTML = `
+  <h3>🥚 ไข่เจียวไส้กรอก</h3>
+  <p>
+  <b>วัตถุดิบ:</b> ไข่, ไส้กรอก<br><br>
+  <b>วิธีทำ:</b><br>
+  1. หั่นไส้กรอก<br>
+  2. ตอกไข่ ตีให้เข้ากัน<br>
+  3. ทอดจนสุก
+  </p>`;
+ }
+ else if(items.length == 0){
+  r.innerHTML = "⚠ กรุณาเลือกวัตถุดิบก่อน";
+ }
+ else{
+  r.innerHTML = "❌ ยังไม่มีเมนูที่เหมาะกับวัตถุดิบนี้";
+ }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FridgeChef - เมนูจากตู้เย็น</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Outfit:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-animation"></div>
+
+    <div class="container">
+        <header class="glass-panel">
+            <h1><i class="fa-solid fa-kitchen-set"></i> FridgeChef</h1>
+            <p>มีอะไรในตู้เย็น? เราช่วยคิดเมนูให้!</p>
+        </header>
+
+        <section class="input-section glass-panel">
+            <h3>วัตถุดิบยอดฮิต</h3>
+            <div class="quick-select" id="quickSelect">
+                <!-- Quick select buttons will be injected here -->
+            </div>
+
+            <div class="divider">หรือพิมพ์เอง</div>
+
+            <div class="input-group">
+                <input type="text" id="ingredientInput" placeholder="ใส่วัตถุดิบ (เช่น ไข่, หมูสับ, ข้าว)...">
+                <button id="addBtn"><i class="fa-solid fa-plus"></i> เพิ่ม</button>
+            </div>
+            <div class="tags-container" id="tagsContainer">
+                <!-- Tags will appear here -->
+            </div>
+            <button id="findBtn" class="primary-btn pulse"><i class="fa-solid fa-magnifying-glass"></i>
+                ค้นหาเมนู</button>
+        </section>
+
+        <section class="results-section" id="resultsSection">
+            <!-- Recipe Cards will appear here -->
+            <div class="empty-state">
+                <i class="fa-regular fa-lightbulb"></i>
+                <p>ใส่วัตถุดิบแล้วกดค้นหาเลย!</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

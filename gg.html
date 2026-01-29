@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Wallet - LifeFix</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-red: #f87171;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(15, 23, 42, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Poppins', 'Sarabun', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Background */
+        .ambient-light {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(74, 222, 128, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            z-index: 10;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, #38bdf8, #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Dashboard Cards */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .card .amount {
+            font-size: 1.8rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .card.balance .amount {
+            color: var(--text-primary);
+        }
+
+        .card.income .amount {
+            color: var(--accent-green);
+        }
+
+        .card.expense .amount {
+            color: var(--accent-red);
+        }
+
+        /* Add Transaction Form */
+        .transaction-form {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-header {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: center;
+        }
+
+        input,
+        select {
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+
+        button.add-btn {
+            background: var(--accent-blue);
+            color: #0f172a;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        button.add-btn:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+        }
+
+        /* Transaction List */
+        .history-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .history-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+        }
+
+        .history-item.plus::before {
+            background-color: var(--accent-green);
+        }
+
+        .history-item.minus::before {
+            background-color: var(--accent-red);
+        }
+
+        .history-item:hover {
+            transform: translateX(5px);
+        }
+
+        .item-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .item-info span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .item-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-amount {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .history-item.plus .item-amount {
+            color: var(--accent-green);
+        }
+
+        .history-item.minus .item-amount {
+            color: var(--accent-red);
+        }
+
+        .delete-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+            opacity: 0;
+        }
+
+        .history-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            color: var(--accent-red);
+        }
+
+        @media (max-width: 650px) {
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-light"></div>
+
+    <div class="container">
+        <header>
+            <div style="flex: 1;"></div>
+            <h1>LifeFix Wallet</h1>
+            <div style="flex: 1;"></div>
+        </header>
+
+        <div class="dashboard">
+            <div class="card balance">
+                <h3>ยอดคงเหลือสุทธิ</h3>
+                <div class="amount" id="balance">฿0.00</div>
+            </div>
+            <div class="card income">
+                <h3>รายรับรวม</h3>
+                <div class="amount" id="income">฿0.00</div>
+            </div>
+            <div class="card expense">
+                <h3>รายจ่ายรวม</h3>
+                <div class="amount" id="expense">฿0.00</div>
+            </div>
+        </div>
+
+        <div class="transaction-form">
+            <h3 class="form-header">เพิ่มรายการใหม่</h3>
+            <form id="form" class="form-group" onsubmit="addTransaction(event)">
+                <input type="text" id="text" placeholder="ชื่อรายการ..." required>
+                <input type="number" id="amount" placeholder="จำนวนเงิน..." required min="0.01" step="0.01">
+                <select id="type">
+                    <option value="income">รายรับ (+)</option>
+                    <option value="expense">รายจ่าย (-)</option>
+                </select>
+                <button type="submit" class="add-btn">
+                    <i class="fas fa-plus"></i> เพิ่ม
+                </button>
+            </form>
+        </div>
+
+        <h3 style="margin-bottom: 15px; color: var(--text-secondary);">ประวัติล่าสุด</h3>
+        <ul id="list" class="history-list">
+            <!-- Transactions will render here -->
+        </ul>
+    </div>
+
+    <script>
+        const balanceEl = document.getElementById('balance');
+        const incomeEl = document.getElementById('income');
+        const expenseEl = document.getElementById('expense');
+        const listEl = document.getElementById('list');
+        const formEl = document.getElementById('form');
+        const textEl = document.getElementById('text');
+        const amountEl = document.getElementById('amount');
+        const typeEl = document.getElementById('type');
+
+        // Initial transactions from localStorage
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+        // Add transaction
+        function addTransaction(e) {
+            e.preventDefault();
+
+            const type = typeEl.value;
+            let amount = +amountEl.value;
+
+            if (type === 'expense') {
+                amount = -amount;
+            }
+
+            const transaction = {
+                id: generateID(),
+                text: textEl.value,
+                amount: amount,
+                date: new Date().toLocaleDateString('th-TH')
+            };
+
+            transactions.push(transaction);
+
+            addTransactionDOM(transaction);
+            updateValues();
+            updateLocalStorage();
+
+            textEl.value = '';
+            amountEl.value = '';
+        }
+
+        // Generate random ID
+        function generateID() {
+            return Math.floor(Math.random() * 100000000);
+        }
+
+        // Add transaction to DOM
+        function addTransactionDOM(transaction) {
+            const sign = transaction.amount < 0 ? '-' : '+';
+            const itemClass = transaction.amount < 0 ? 'minus' : 'plus';
+            const amountDisplay = Math.abs(transaction.amount).toLocaleString('th-TH', { minimumFractionDigits: 2 });
+
+            const item = document.createElement('li');
+            item.classList.add('history-item', itemClass);
+
+            item.innerHTML = `
+                <div class="item-info">
+                    <h4>${transaction.text}</h4>
+                    <span>${transaction.date}</span>
+                </div>
+                <div class="item-actions">
+                    <span class="item-amount">${sign}฿${amountDisplay}</span>
+                    <button class="delete-btn" onclick="removeTransaction(${transaction.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+
+            listEl.prepend(item);
+        }
+
+        // Remove transaction by ID
+        function removeTransaction(id) {
+            transactions = transactions.filter(transaction => transaction.id !== id);
+            updateLocalStorage();
+            init();
+        }
+
+        // Update balance, income and expense
+        function updateValues() {
+            const amounts = transactions.map(transaction => transaction.amount);
+
+            const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+
+            const income = amounts
+                .filter(item => item > 0)
+                .reduce((acc, item) => (acc += item), 0)
+                .toFixed(2);
+
+            const expense = (amounts
+                .filter(item => item < 0)
+                .reduce((acc, item) => (acc += item), 0) * -1)
+                .toFixed(2);
+
+            balanceEl.innerText = `฿${Number(total).toLocaleString('th-TH', { minimumFractionDigits: 2 })}`;
+            incomeEl.innerText = `฿${Number(income).toLocaleString('th-TH', { minimumFractionDigits: 2 })}`;
+            expenseEl.innerText = `฿${Number(expense).toLocaleString('th-TH', { minimumFractionDigits: 2 })}`;
+        }
+
+        // Update local storage
+        function updateLocalStorage() {
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+        }
+
+        // Init app
+        function init() {
+            listEl.innerHTML = '';
+            transactions.forEach(addTransactionDOM);
+            updateValues();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
